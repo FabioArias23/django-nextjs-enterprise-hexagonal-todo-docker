@@ -10,11 +10,11 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5499:5432"  # <--- Cambiamos a 5499. No puede fallar.
+      - "5499:5432"
 
   backend:
     build: ./backend
-    container_name: django_backend
+    container_name: django-backend # ✅ Nombre estandarizado
     restart: always
     volumes:
       - ./backend:/app
@@ -25,7 +25,8 @@ services:
       - DATABASE_USER=postgres_user
       - DATABASE_PASSWORD=postgres_password
       - DATABASE_HOST=db
-      - DATABASE_PORT=5432 # Internamente siempre es 5432
+      - DATABASE_PORT=5432
+      - DEBUG=1
     depends_on:
       - db
 
@@ -36,10 +37,13 @@ services:
     volumes:
       - ./frontend:/app
       - /app/node_modules
+      - /app/.next
     ports:
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
+      - NEXT_PUBLIC_BACKEND_URL=http://django-backend:8000
+      - WATCHPACK_POLLING=true
+      - HOSTNAME=0.0.0.0
     depends_on:
       - backend
 
