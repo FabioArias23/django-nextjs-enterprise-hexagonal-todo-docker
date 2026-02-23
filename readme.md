@@ -50,3 +50,61 @@ Siga estos pasos para levantar el entorno completo de desarrollo:
    # Crear las tablas en PostgreSQL
 docker-compose exec backend python manage.py migrate
 
+Backend (Django):
+Entra a la carpeta: cd backend
+Activa el entorno virtual: venv\Scripts\activate (Windows)
+Instala dependencias: pip install -r requirements.txt
+Inicia el server:
+python manage.py runserver
+
+
+Para un perfil Senior, es fundamental saber manejar los servicios de forma independiente, ya sea para hacer debugging específico o para ahorrar recursos.
+Aquí tienes los comandos para levantarlos de forma singular usando Docker (recomendado) y de forma local (en tu Windows).
+🐳 1. Levantarlos singularmente con DOCKER (Recomendado)
+Desde la raíz del proyecto (nextjs-django-crud):
+Solo el Backend y la Base de Datos:
+(Útil para probar la API con Postman o Insomnia sin cargar el frontend)
+code
+Bash
+docker-compose up db backend
+Solo el Frontend:
+(Nota: Fallará si el backend no está encendido, pero sirve para ver la UI)
+code
+Bash
+docker-compose up frontend
+Ejecutar comandos dentro de un servicio encendido:
+code
+Bash
+# Correr migraciones
+docker-compose exec backend python manage.py migrate
+
+# Crear superusuario
+docker-compose exec backend python manage.py createsuperuser
+
+# Entrar a la consola de Django
+docker-compose exec backend python manage.py shell
+💻 2. Levantarlos singularmente de forma LOCAL (Sin Docker)
+Nota: Para que el backend funcione localmente, la base de datos de Docker DEBE estar encendida (docker-compose up db).
+Backend (Django):
+Entra a la carpeta: cd backend
+Activa el entorno virtual: venv\Scripts\activate (Windows)
+Instala dependencias: pip install -r requirements.txt
+Inicia el server:
+
+python manage.py runserver
+
+
+(Gracias a la lógica que pusimos en settings.py, detectará que estás en local y usará el puerto 5499 de la DB).
+
+Frontend (Next.js):
+
+Entra a la carpeta: cd frontend
+Instala dependencias: npm install
+
+Inicia el server:
+
+npm run dev
+
+.venv\Scripts\Activate.ps1
+
+python manage.py runserver
