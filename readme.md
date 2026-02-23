@@ -32,11 +32,21 @@ A diferencia del patrón estándar de Django, este proyecto separa las responsab
 
 ## 🚀 Guía de Inicio Rápido
 
-### Requisitos
-- Docker Desktop instalado.
+Siga estos pasos para levantar el entorno completo de desarrollo:
 
-### Instalación
+### Requisitos
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) instalado y en ejecución.
+
+### Instalación y Despliegue
 1. **Clonar el proyecto:**
    ```bash
    git clone https://github.com/FabioArias23/django-nextjs-enterprise-hexagonal-todo-docker.git
    cd django-nextjs-enterprise-hexagonal-todo-docker
+
+   Levantar la infraestructura con Docker:
+
+   docker-compose up --build
+
+   # Crear las tablas en PostgreSQL
+docker-compose exec backend python manage.py migrate
+
